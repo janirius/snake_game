@@ -140,11 +140,10 @@ function setDirectionMobile(newDir) {
 // Mobile restart button
 const btnRestart = document.getElementById('btn-restart');
 if (btnRestart) {
-    btnRestart.addEventListener('touchstart', e => {
-        e.preventDefault();
+    btnRestart.addEventListener('touchend', () => {
         resetGame();
     });
-    btnRestart.addEventListener('click', e => {
+    btnRestart.addEventListener('click', () => {
         resetGame();
     });
 }
