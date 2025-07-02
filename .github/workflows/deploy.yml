@@ -1,0 +1,31 @@
+name: Deploy Snake Game
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Deploy to Ubuntu server
+        run: |
+          ssh user@your-ubuntu-server "mkdir -p /path/to/deploy"
+          scp -r ./src/* user@your-ubuntu-server:/path/to/deploy
+          ssh user@your-ubuntu-server "systemctl restart your-service"
