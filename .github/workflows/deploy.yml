@@ -13,19 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the project
-        run: npm run build
-
-      - name: Deploy to Ubuntu server
-        run: |
-          ssh user@your-ubuntu-server "mkdir -p /path/to/deploy"
-          scp -r ./src/* user@your-ubuntu-server:/path/to/deploy
-          ssh user@your-ubuntu-server "systemctl restart your-service"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src
