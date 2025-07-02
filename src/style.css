@@ -65,6 +65,17 @@ canvas {
     .mobile-btn:active {
         background: #388E3C;
     }
+    .mobile-btn#btn-restart {
+        width: 130px;
+        height: 50px;
+        font-size: 1.2em;
+        background: #FFC107;
+        color: #222;
+        margin-top: 10px;
+    }
+    .mobile-btn#btn-restart:active {
+        background: #FFA000;
+    }
 }
 
 .mobile-controls {

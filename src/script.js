@@ -137,6 +137,18 @@ function setDirectionMobile(newDir) {
     }
 });
 
+// Mobile restart button
+const btnRestart = document.getElementById('btn-restart');
+if (btnRestart) {
+    btnRestart.addEventListener('touchstart', e => {
+        e.preventDefault();
+        resetGame();
+    });
+    btnRestart.addEventListener('click', e => {
+        resetGame();
+    });
+}
+
 // Swipe gesture support
 let touchStartX = 0, touchStartY = 0;
 canvas.addEventListener('touchstart', function(e) {
