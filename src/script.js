@@ -99,7 +99,6 @@ document.addEventListener('keydown', e => {
         }
         return;
     }
-
     switch (e.key) {
         case 'ArrowUp':
             if (direction !== 'down') direction = 'up';
@@ -113,6 +112,50 @@ document.addEventListener('keydown', e => {
         case 'ArrowRight':
             if (direction !== 'left') direction = 'right';
             break;
+    }
+});
+
+// Mobile touch controls
+function setDirectionMobile(newDir) {
+    if (gameOver) return;
+    if (newDir === 'up' && direction !== 'down') direction = 'up';
+    if (newDir === 'down' && direction !== 'up') direction = 'down';
+    if (newDir === 'left' && direction !== 'right') direction = 'left';
+    if (newDir === 'right' && direction !== 'left') direction = 'right';
+}
+
+['up','down','left','right'].forEach(dir => {
+    const btn = document.getElementById('btn-' + dir);
+    if (btn) {
+        btn.addEventListener('touchstart', e => {
+            e.preventDefault();
+            setDirectionMobile(dir);
+        });
+        btn.addEventListener('click', e => {
+            setDirectionMobile(dir);
+        });
+    }
+});
+
+// Swipe gesture support
+let touchStartX = 0, touchStartY = 0;
+canvas.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }
+});
+canvas.addEventListener('touchend', function(e) {
+    if (e.changedTouches.length === 1) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy)) {
+            if (dx > 30) setDirectionMobile('right');
+            else if (dx < -30) setDirectionMobile('left');
+        } else {
+            if (dy > 30) setDirectionMobile('down');
+            else if (dy < -30) setDirectionMobile('up');
+        }
     }
 });
 
